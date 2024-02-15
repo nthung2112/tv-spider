@@ -1,0 +1,11 @@
+#EXTINF:-1 group-title="4K SPORTS" tvg-logo="http://gg.gg/hrd222",4K-UHD Channel
+http://89.45.13.153:25461/play/live.php?mac=00:1A:79:2D:84:EB&stream=1299719&extension=ts&play_token=FPfKLl8zwY
+
+#EXTINF:-1 group-title="4K SPORTS" group-logo="http://gg.gg/live4kkkk" tvg-logo="http://gg.gg/logo4kkkk",TNT Ultimate Sports
+http://89.45.13.153:25461/play/live.php?mac=00:1A:79:2D:84:EB&stream=1300442&extension=ts&play_token=OrwX9CmOUD
+
+#EXTINF:-1 group-title="4K SPORTS" tvg-logo="http://gg.gg/logo4kkkk",Sky Sports Main Event
+http://89.45.13.153:25461/play/live.php?mac=00:1A:79:2D:84:EB&stream=1232965&extension=ts&play_token=3ms3VTPjIv
+
+#EXTINF:-1 group-title="4K SPORTS" tvg-logo="http://gg.gg/elevenkkk",Eleven 4K
+http://apk.androidtrex.com:80/play/live.php?mac=00:1A:79:74:34:8e&stream=905665&extension=ts&play_token=w04PypIZGW
