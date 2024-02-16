@@ -19,11 +19,6 @@
       "name": "TVPLUSVN",
       "url": "https://raw.githubusercontent.com/frumos96/gemtv/main/TVPLUSVN.m3u",
       "playerType": 2
-    },
-    {
-      "name": "IPTV",
-      "url": "https://raw.githubusercontent.com/thanh51/repository.thanh51/master/IPTV.m3u",
-      "playerType": 2
     }
   ],
   "sites": [
