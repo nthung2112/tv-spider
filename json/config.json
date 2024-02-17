@@ -19,6 +19,11 @@
       "name": "TVPLUSVN",
       "url": "https://raw.githubusercontent.com/frumos96/gemtv/main/TVPLUSVN.m3u",
       "playerType": 2
+    },
+    {
+      "name": "Sport",
+      "url": "https://raw.githubusercontent.com/Zoom-Adr/MYTV/master/sports-x.m3u",
+      "playerType": 2
     }
   ],
   "sites": [
