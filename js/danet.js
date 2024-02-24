@@ -105,15 +105,13 @@ async function detail(id) {
     vod_content: data.summary,
   };
 
-  const list = _.map(episodes, (item) => {
-    return {
-      ...vod,
-      vod_play_url: `Danet$${data.uid}-${item.uid}$`,
-    };
-  });
+  vod.vod_play_url = episodes
+    .map((d) => `${d.title}$${data.uid}-${d.uid}`)
+    .join("#");
+
 
   return JSON.stringify({
-    list,
+    list: [vod],
   });
 }
 
