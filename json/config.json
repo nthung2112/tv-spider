@@ -62,6 +62,14 @@
       "changeable": 1
     },
     {
+      "key": "danet",
+      "name": "Danet",
+      "type": 3,
+      "api": "https://raw.githubusercontent.com/nthung2112/tv-spider/main/js/danet.js",
+      "searchable": 1,
+      "changeable": 1
+    },
+    {
       "key": "vebotv",
       "name": "Vebo TV",
       "type": 3,
