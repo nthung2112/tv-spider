@@ -136,12 +136,13 @@ async function detail(id) {
   const meta = JSON.parse(await request(url + `/api/match/${id}`)).data;
   const data = JSON.parse(await request(url + `/api/match/${id}/meta`)).data;
 
+  const awayName = meta.away ? `${meta.scores.away} ${meta.away.name}` : '';
+  const homeName = awayName ? `${meta.home.name} ${meta.scores.home}` : `${meta.home.name}`;
+
   const vod = {
     vod_id: id,
     vod_pic: meta.tournament.logo,
-    vod_name: `${meta.home.name} ${meta.scores.home} - ${meta.scores.away} ${
-      meta.away ? meta.away.name : ''
-    }`,
+    vod_name: [homeName, awayName].filter(Boolean).join(' - '),
     vod_play_from: !_.isEmpty(data.play_urls) ? 'ThapCamTV' : '',
     vod_play_url: !_.isEmpty(data.play_urls)
       ? data.play_urls.map((item) => `${item.name}$${item.url}`).join('#')
