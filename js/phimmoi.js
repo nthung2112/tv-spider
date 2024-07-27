@@ -1,7 +1,6 @@
 import { load, _ } from './lib/cat.js';
-import { stringToSlug } from './lib/similarity.js';
 
-let url = 'https://phimmoichillr.net';
+let url = 'https://phimmoichillv.net';
 let siteKey = '';
 let siteType = 0;
 

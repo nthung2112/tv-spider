@@ -25,7 +25,7 @@ async function init(cfg) {
 
 async function home(filter) {
   const dulieu = {
-    "Phim Mới": "/danh-sach/phim-moi",
+    "Phim đang chiếu": "/danh-sach/phim-dang-chieu",
     "Phim Bộ": "/danh-sach/phim-bo",
     "Phim Lẻ": "/danh-sach/phim-le",
     "TV Shows": "/danh-sach/tv-shows",
