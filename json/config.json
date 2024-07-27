@@ -62,6 +62,14 @@
       "changeable": 1
     },
     {
+      "key": "ohitv",
+      "name": "OHiTV",
+      "type": 3,
+      "api": "https://raw.githubusercontent.com/nthung2112/tv-spider/main/js/ohitv.js",
+      "searchable": 1,
+      "changeable": 1
+    },
+    {
       "key": "danet",
       "name": "Danet",
       "type": 3,
