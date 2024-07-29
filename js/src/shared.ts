@@ -11,8 +11,8 @@ export async function getRequest<T>(reqUrl: string, agentSp?: string) {
   return res.content;
 }
 
-export async function postRequest(reqUrl: string, data: Record<string, any>, agentSp?: string) {
-  const res = await req(reqUrl, {
+export async function postRequest<T>(reqUrl: string, data: Record<string, any>, agentSp?: string) {
+  const res = await req<T>(reqUrl, {
     method: 'post',
     postType: 'form',
     headers: {

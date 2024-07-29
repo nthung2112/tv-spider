@@ -7,7 +7,7 @@ export default defineConfig({
   format: ['esm'],
   sourcemap: false,
   minify: false,
-  target: 'esnext',
+  target: 'es2018',
   splitting: false,
   outDir: 'dist',
   platform: 'browser',

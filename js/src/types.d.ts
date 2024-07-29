@@ -1,6 +1,3 @@
-import lodash from 'lodash';
-declare const _ = lodash;
-
 declare class Stringified<T> extends String {
   private ___stringified: T;
 }
@@ -28,9 +25,34 @@ interface VodItem {
   vod_id: string;
   vod_name: string;
   vod_pic: string;
-  vod_remarks: string;
+  vod_remarks?: string;
+  vod_play_from?: string;
+  vod_play_url?: string;
+  vod_director?: string;
+  vod_area?: string;
+  vod_actor?: string;
+  vod_year?: string;
+  vod_content?: string;
 }
 
-interface HomeVodFn {
+interface VodData {
+  list: VodItem[];
+}
+
+interface HomeData {
+  class: any;
+  filters: any;
+}
+
+interface PlayData {
+  parse: number;
+  url: string;
+}
+
+interface CategoryData {
+  page: number;
+  pagecount: number;
+  limit: number;
+  total: number;
   list: VodItem[];
 }
