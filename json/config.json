@@ -73,7 +73,7 @@
       "key": "danet",
       "name": "Danet",
       "type": 3,
-      "api": "https://raw.githubusercontent.com/nthung2112/tv-spider/main/js/danet.js",
+      "api": "https://raw.githubusercontent.com/nthung2112/tv-spider/main/js/dist/danet.js",
       "searchable": 1,
       "changeable": 1
     },
