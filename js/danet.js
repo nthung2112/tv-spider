@@ -1,6 +1,3 @@
-import { _ } from "./lib/cat.js";
-import { showDateText } from "./lib/similarity.js";
-
 let url = "https://danet.vn";
 let siteKey = "";
 let siteType = 0;
