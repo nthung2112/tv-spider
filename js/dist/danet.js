@@ -94,12 +94,11 @@ async function detail(id) {
   });
 }
 async function play(flag, id, vipFlags) {
-  var _a;
   const [movieId, episodeId] = id.split("-");
   const streams = JSON.parse(
     await getRequest(`${url}/api/movies/${movieId}/episodes/${episodeId}/locations`)
   ).streams;
-  const link = (_a = streams == null ? void 0 : streams[0]) == null ? void 0 : _a.file_location;
+  const link = streams?.[0]?.file_location;
   return JSON.stringify({
     parse: 0,
     url: link
