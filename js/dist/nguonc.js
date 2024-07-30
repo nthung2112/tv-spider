@@ -13905,11 +13905,32 @@ async function getRequest(reqUrl, agentSp) {
   });
   return res.content;
 }
-function lodashMap(items, iteratee) {
-  if (Array.isArray(items)) {
-    return items.map(iteratee);
+function isArrayLike2(item) {
+  if (Array.isArray(item)) {
+    return true;
   }
-  return Object.keys(items).map((key) => iteratee(key, items[key]));
+  if (typeof item !== "object" || !Object.prototype.hasOwnProperty.call(item, "length") || typeof item.length !== "number" || item.length < 0) {
+    return false;
+  }
+  for (let i = 0; i < item.length; i++) {
+    if (!(i in item)) {
+      return false;
+    }
+  }
+  return true;
+}
+function mapArray(items, callback) {
+  const results = [];
+  for (let i = 0; i < items.length; i++) {
+    results.push(callback(items[i], i));
+  }
+  return results;
+}
+function lodashMap(items, iteratee) {
+  if (isArrayLike2(items)) {
+    return mapArray(items, iteratee);
+  }
+  return Object.keys(items).map((key) => iteratee(items[key], key));
 }
 
 // src/sites/nguonc.ts
@@ -13971,10 +13992,10 @@ async function home(filter4) {
     "Qu\u1ED1c gia kh\xE1c": "/quoc-gia/quoc-gia-khac"
   };
   const classes = lodashMap(dulieu, (key, label) => ({
-    type_id: key,
-    type_name: label
+    id: key,
+    name: label
   }));
-  let filterObj = {
+  const filterObj = {
     "the-loai": [
       {
         key: "tag",
@@ -14007,7 +14028,7 @@ async function homeVod() {
   const data2 = await getRequest(`${url}/danh-sach-phim`);
   const $2 = load(data2);
   const items = $2("table tbody tr");
-  let list = lodashMap(items, (item) => {
+  const list = lodashMap(items, (item) => {
     const mainTitle = $2(item).find("td h3").text().trim();
     const subTitle = $2(item).find("td h4").text().trim();
     return {
@@ -14031,27 +14052,27 @@ async function category(tid, pg, filter4, extend) {
   const $2 = load(data2);
   const items = $2("table tbody tr");
   const total = $2("font-medium mx-1");
-  let list = lodashMap(items, (item) => {
+  const list = lodashMap(items, (item) => {
     const mainTitle = $2(item).find("td h3").text().trim();
     const subTitle = $2(item).find("td h4").text().trim();
     return {
-      vod_id: $2(item).find("td a")[0].attribs.href.split("/").pop(),
+      vod_id: $2(item).find("td a")[0].attribs.href.split("/").pop() || "",
       vod_name: `${mainTitle} (${subTitle})`,
       vod_pic: $2(item).find("img:first")[0].attribs["data-src"],
       vod_remarks: $2($2(item).find("td")[1]).text().trim()
     };
   });
   return JSON.stringify({
-    page: pg,
-    pagecount: total[1] ? total[1].text().trim() : 1,
+    page: Number(pg),
+    pagecount: total[1] ? Number($2(total[1]).text().trim()) : 1,
     limit: items.length,
-    total: total[2] ? total[2].text().trim() : items.length,
+    total: total[2] ? Number($2(total[2]).text().trim()) : items.length,
     list
   });
 }
 async function detail(id) {
   const data2 = JSON.parse(await getRequest(`${url}/api/film/${id}`));
-  let vod = {
+  const vod = {
     vod_id: data2.movie.slug,
     vod_pic: data2.movie.poster_url,
     vod_remarks: data2.movie.episode_current,

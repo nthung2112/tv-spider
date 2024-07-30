@@ -24,7 +24,7 @@ export async function postRequest<T>(reqUrl: string, data: Record<string, any>, 
   return res.content;
 }
 
-function isArrayLike(item: any) {
+function isArrayLike<T extends Record<string, any>>(item: T | T[]): item is T[] {
   if (Array.isArray(item)) {
     return true;
   }
@@ -44,20 +44,20 @@ function isArrayLike(item: any) {
   return true;
 }
 
-function mapArray<T>(items: T[], callback: (item: T, index: any) => any) {
-  const results = [];
+function mapArray<T, K>(items: T[], callback: (item: T, index: any) => K) {
+  const results = [] as K[];
   for (let i = 0; i < items.length; i++) {
     results.push(callback(items[i], i));
   }
   return results;
 }
 
-export function lodashMap<T extends Record<string, any>>(
+export function lodashMap<T extends Record<string, any>, K>(
   items: T | T[],
-  iteratee: (value: any, index: any) => unknown
+  iteratee: (value: any, index: any) => K
 ) {
   if (isArrayLike(items)) {
-    return mapArray(items as T[], iteratee);
+    return mapArray(items, iteratee);
   }
 
   return Object.keys(items).map((key) => iteratee(items[key], key));

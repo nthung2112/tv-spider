@@ -62,11 +62,11 @@ async function home(filter: boolean): Promise<Stringified<HomeData>> {
   };
 
   const classes = lodashMap(dulieu, (key, label) => ({
-    type_id: key,
-    type_name: label,
+    id: key,
+    name: label,
   }));
 
-  let filterObj = {
+  const filterObj = {
     'the-loai': [
       {
         key: 'tag',
@@ -102,7 +102,7 @@ async function homeVod() {
   const $ = load(data);
   const items = $('table tbody tr');
 
-  let list = lodashMap(items, (item) => {
+  const list = lodashMap(items, (item) => {
     const mainTitle = $(item).find('td h3').text().trim();
     const subTitle = $(item).find('td h4').text().trim();
     return {
@@ -136,11 +136,11 @@ async function category(
   const items = $('table tbody tr');
   const total = $('font-medium mx-1');
 
-  let list = lodashMap(items, (item) => {
+  const list = lodashMap(items, (item) => {
     const mainTitle = $(item).find('td h3').text().trim();
     const subTitle = $(item).find('td h4').text().trim();
     return {
-      vod_id: $(item).find('td a')[0].attribs.href.split('/').pop(),
+      vod_id: $(item).find('td a')[0].attribs.href.split('/').pop() || '',
       vod_name: `${mainTitle} (${subTitle})`,
       vod_pic: $(item).find('img:first')[0].attribs['data-src'],
       vod_remarks: $($(item).find('td')[1]).text().trim(),
@@ -148,17 +148,17 @@ async function category(
   });
 
   return JSON.stringify({
-    page: pg,
-    pagecount: total[1] ? total[1].text().trim() : 1,
+    page: Number(pg),
+    pagecount: total[1] ? Number($(total[1]).text().trim()) : 1,
     limit: items.length,
-    total: total[2] ? total[2].text().trim() : items.length,
+    total: total[2] ? Number($(total[2]).text().trim()) : items.length,
     list,
   });
 }
 
 async function detail(id: string): Promise<Stringified<VodData>> {
   const data = JSON.parse(await getRequest<string>(`${url}/api/film/${id}`));
-  let vod = {
+  const vod = {
     vod_id: data.movie.slug,
     vod_pic: data.movie.poster_url,
     vod_remarks: data.movie.episode_current,

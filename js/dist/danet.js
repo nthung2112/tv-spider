@@ -104,9 +104,9 @@ async function play(flag, id, vipFlags) {
     url: link
   });
 }
-async function search(key, quick, pg) {
+async function search(wd, quick, pg) {
   const results = JSON.parse(
-    await getRequest(`${url}/api/movies?limit=20&page=1&q=${key}`)
+    await getRequest(`${url}/api/movies?limit=20&page=1&q=${wd}`)
   ).results;
   const list = results.map((item) => {
     return {

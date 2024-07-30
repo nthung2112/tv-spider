@@ -16,7 +16,7 @@ async function test() {
   console.log('homeVod', homeVod);
   if (classes.class && classes.class.length > 0) {
     var page = JSON.parse(
-      await spider.category(spType || classes.class[0].type_id, 0, false, {})
+      await spider.category(spType || classes.class[0].id,'0', false, {})
     );
     console.log('page', page);
     if (page.list && page.list.length > 0) {

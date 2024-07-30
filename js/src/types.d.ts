@@ -39,9 +39,26 @@ interface VodData {
   list: VodItem[];
 }
 
+interface ClassItem {
+  id: string;
+  name: string;
+}
+
+interface FilterValueItem {
+  v: string;
+  n: string;
+}
+
+interface FilterItem {
+  key: string;
+  init: string;
+  name: string;
+  value: FilterValueItem[];
+}
+
 interface HomeData {
-  class: any;
-  filters: any;
+  class: ClassItem[];
+  filters: Record<string, FilterItem[]>;
 }
 
 interface PlayData {
