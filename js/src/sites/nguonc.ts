@@ -5,7 +5,7 @@ let url = 'https://phim.nguonc.com';
 let siteKey = '';
 let siteType = 0;
 
-async function init(cfg: { skey: string; stype: number }): Promise<void> {
+async function init(cfg: { skey: string; stype: number, ext?: string }): Promise<void> {
   siteKey = cfg.skey;
   siteType = cfg.stype;
 }

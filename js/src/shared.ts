@@ -24,13 +24,41 @@ export async function postRequest<T>(reqUrl: string, data: Record<string, any>, 
   return res.content;
 }
 
+function isArrayLike(item: any) {
+  if (Array.isArray(item)) {
+    return true;
+  }
+  if (
+    typeof item !== 'object' ||
+    !Object.prototype.hasOwnProperty.call(item, 'length') ||
+    typeof item.length !== 'number' ||
+    item.length < 0
+  ) {
+    return false;
+  }
+  for (let i = 0; i < item.length; i++) {
+    if (!(i in item)) {
+      return false;
+    }
+  }
+  return true;
+}
+
+function mapArray<T>(items: T[], callback: (item: T, index: any) => any) {
+  const results = [];
+  for (let i = 0; i < items.length; i++) {
+    results.push(callback(items[i], i));
+  }
+  return results;
+}
+
 export function lodashMap<T extends Record<string, any>>(
   items: T | T[],
   iteratee: (value: any, index: any) => unknown
 ) {
-  if (Array.isArray(items)) {
-    return items.map(iteratee);
+  if (isArrayLike(items)) {
+    return mapArray(items as T[], iteratee);
   }
 
-  return Object.keys(items).map((key) => iteratee(key, items[key]));
+  return Object.keys(items).map((key) => iteratee(items[key], key));
 }

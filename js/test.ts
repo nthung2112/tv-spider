@@ -1,5 +1,5 @@
-import './wrapper/index.js';
-import { __jsEvalReturn } from './sites/danet';
+import './src/wrapper/index.js';
+import { __jsEvalReturn } from './src/sites/nguonc';
 
 var spider = __jsEvalReturn();
 
@@ -9,14 +9,14 @@ async function test() {
   // spType = '';
   // spVid = '95873';
 
-  await spider.init({ skey: 'siteKey', ext: '' });
+  await spider.init({ skey: 'siteKey', stype: 0 });
   var classes = JSON.parse(await spider.home(true));
   console.log('classes', classes);
   var homeVod = JSON.parse(await spider.homeVod());
   console.log('homeVod', homeVod);
   if (classes.class && classes.class.length > 0) {
     var page = JSON.parse(
-      await spider.category(spType || classes.class[0].type_id, 0, undefined, {})
+      await spider.category(spType || classes.class[0].type_id, 0, false, {})
     );
     console.log('page', page);
     if (page.list && page.list.length > 0) {

@@ -99,7 +99,8 @@
   },
   "include": [
     "src/types.d.ts",
-    "src/**/*.ts"
+    "src/**/*.ts",
+    "test.ts"
   ],
   "exclude": [
     "node_modules"
