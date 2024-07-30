@@ -39,8 +39,8 @@ async function home(filter) {
     await getRequest(`${url}/api/movie-playlists?limit=10&module_id=2&page=1`)
   ).results;
   const classes = results.map((item) => ({
-    type_id: item.id,
-    type_name: item.name
+    id: item.id,
+    name: item.name
   }));
   return JSON.stringify({
     class: classes,

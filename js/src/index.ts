@@ -21,12 +21,12 @@ async function home(filter: boolean): Promise<Stringified<HomeData>> {
 
 async function category(
   tid: string,
-  page: string,
+  pg: string,
   filter: boolean,
   extend: Record<string, string>
 ): Promise<Stringified<CategoryData>> {
   // Implement category page logic with tid, pg, filter, and extend parameters
-  console.log(`Category page: tid=${tid}, pg=${page}, filter=${filter}, extend=${extend}`);
+  console.log(`Category page: tid=${tid}, pg=${pg}, filter=${filter}, extend=${extend}`);
 
   return JSON.stringify({ page: 1, pagecount: 1, limit: 1, total: 1, list: [] });
 }

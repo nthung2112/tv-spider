@@ -35,8 +35,8 @@ async function home(filter: boolean): Promise<Stringified<HomeData>> {
   ).results;
 
   const classes = results.map((item) => ({
-    type_id: item.id,
-    type_name: item.name,
+    id: item.id,
+    name: item.name,
   }));
 
   return JSON.stringify({
@@ -47,7 +47,7 @@ async function home(filter: boolean): Promise<Stringified<HomeData>> {
 
 async function category(
   tid: string,
-  page: string,
+  page: number,
   filter: boolean,
   extend: Record<string, string>
 ): Promise<Stringified<CategoryData>> {
