@@ -23,3 +23,14 @@ export async function postRequest<T>(reqUrl: string, data: Record<string, any>, 
   });
   return res.content;
 }
+
+export function lodashMap<T extends Record<string, any>>(
+  items: T | T[],
+  iteratee: (value: any, index: any) => unknown
+) {
+  if (Array.isArray(items)) {
+    return items.map(iteratee);
+  }
+
+  return Object.keys(items).map((key) => iteratee(key, items[key]));
+}

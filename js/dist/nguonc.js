@@ -1918,7 +1918,7 @@ function isCheerio(maybeCheerio) {
   return maybeCheerio.cheerio != null;
 }
 function camelCase(str) {
-  return str.replace(/[_.-](\w|$)/g, (_2, x) => x.toUpperCase());
+  return str.replace(/[_.-](\w|$)/g, (_, x) => x.toUpperCase());
 }
 function cssCase(str) {
   return str.replace(/[A-Z]/g, "-$&").toLowerCase();
@@ -2422,7 +2422,7 @@ function isTraversal(selector) {
   }
 }
 var stripQuotesFromPseudos = /* @__PURE__ */ new Set(["contains", "icontains"]);
-function funescape(_2, escaped, escapedWhitespace) {
+function funescape(_, escaped, escapedWhitespace) {
   const high = parseInt(escaped, 16) - 65536;
   return high !== high || escapedWhitespace ? escaped : high < 0 ? (
     // BMP codepoint
@@ -3753,9 +3753,9 @@ function filterByPosition(filter4, elems, data2, options) {
     case "gt":
       return isFinite(num) ? elems.slice(num + 1) : [];
     case "even":
-      return elems.filter((_2, i) => i % 2 === 0);
+      return elems.filter((_, i) => i % 2 === 0);
     case "odd":
-      return elems.filter((_2, i) => i % 2 === 1);
+      return elems.filter((_, i) => i % 2 === 1);
     case "not": {
       const filtered = new Set(filterParsed(data2, elems, options));
       return elems.filter((e) => !filtered.has(e));
@@ -4087,7 +4087,7 @@ function has(selectorOrHaystack) {
   return this.filter(typeof selectorOrHaystack === "string" ? (
     // Using the `:has` selector here short-circuits searches.
     `:has(${selectorOrHaystack})`
-  ) : (_2, el) => this._make(el).find(selectorOrHaystack).length > 0);
+  ) : (_, el) => this._make(el).find(selectorOrHaystack).length > 0);
 }
 function first() {
   return this.length > 1 ? this._make(this[0]) : this;
@@ -4336,7 +4336,7 @@ var wrapInner = _wrap((el, elInsertLocation, wrapperDom) => {
   update(wrapperDom, el);
 });
 function unwrap(selector) {
-  this.parent(selector).not("body").each((_2, el) => {
+  this.parent(selector).not("body").each((_, el) => {
     this._make(el).replaceWith(el.children);
   });
   return this;
@@ -4605,7 +4605,7 @@ function serialize() {
   return retArr.join("&").replace(r20, "+");
 }
 function serializeArray() {
-  return this.map((_2, elem) => {
+  return this.map((_, elem) => {
     const $elem = this._make(elem);
     if (isTag2(elem) && elem.name === "form") {
       return $elem.find(submittableSelector).toArray();
@@ -4615,7 +4615,7 @@ function serializeArray() {
     // Verify elements have a name (`attr.name`) and are not disabled (`:enabled`)
     '[name!=""]:enabled:not(:submit, :button, :image, :reset, :file):matches([checked], :not(:checkbox, :radio))'
     // Convert each of the elements to its value(s)
-  ).map((_2, elem) => {
+  ).map((_, elem) => {
     var _a2;
     const $elem = this._make(elem);
     const name = $elem.attr("name");
@@ -13905,6 +13905,12 @@ async function getRequest(reqUrl, agentSp) {
   });
   return res.content;
 }
+function lodashMap(items, iteratee) {
+  if (Array.isArray(items)) {
+    return items.map(iteratee);
+  }
+  return Object.keys(items).map((key) => iteratee(key, items[key]));
+}
 
 // src/sites/nguonc.ts
 var url = "https://phim.nguonc.com";
@@ -13964,7 +13970,7 @@ async function home(filter4) {
     "\u1EA4n \u0110\u1ED9": "/quoc-gia/an-do",
     "Qu\u1ED1c gia kh\xE1c": "/quoc-gia/quoc-gia-khac"
   };
-  const classes = _.map(dulieu, (key, label) => ({
+  const classes = lodashMap(dulieu, (key, label) => ({
     type_id: key,
     type_name: label
   }));
@@ -13974,7 +13980,7 @@ async function home(filter4) {
         key: "tag",
         init: "/the-loai/hanh-dong",
         name: "Type",
-        value: _.map(theloai, (key, label) => ({
+        value: lodashMap(theloai, (key, label) => ({
           v: key,
           n: label
         }))
@@ -13985,7 +13991,7 @@ async function home(filter4) {
         key: "tag",
         init: "/quoc-gia/au-my",
         name: "Type",
-        value: _.map(quocgia, (key, label) => ({
+        value: lodashMap(quocgia, (key, label) => ({
           v: key,
           n: label
         }))
@@ -14001,7 +14007,7 @@ async function homeVod() {
   const data2 = await getRequest(`${url}/danh-sach-phim`);
   const $2 = load(data2);
   const items = $2("table tbody tr");
-  let list = _.map(items, (item) => {
+  let list = lodashMap(items, (item) => {
     const mainTitle = $2(item).find("td h3").text().trim();
     const subTitle = $2(item).find("td h4").text().trim();
     return {
@@ -14025,7 +14031,7 @@ async function category(tid, pg, filter4, extend) {
   const $2 = load(data2);
   const items = $2("table tbody tr");
   const total = $2("font-medium mx-1");
-  let list = _.map(items, (item) => {
+  let list = lodashMap(items, (item) => {
     const mainTitle = $2(item).find("td h3").text().trim();
     const subTitle = $2(item).find("td h4").text().trim();
     return {
@@ -14044,7 +14050,7 @@ async function category(tid, pg, filter4, extend) {
   });
 }
 async function detail(id) {
-  const data2 = JSON.parse(await request(`${url}/api/film/${id}`));
+  const data2 = JSON.parse(await getRequest(`${url}/api/film/${id}`));
   let vod = {
     vod_id: data2.movie.slug,
     vod_pic: data2.movie.poster_url,
@@ -14060,18 +14066,18 @@ async function detail(id) {
     list: [vod]
   });
 }
-async function play(flag, id, flags) {
+async function play(flag, id, vipFlags) {
   return JSON.stringify({
     parse: 0,
     url: id
   });
 }
-async function search(wd, quick) {
-  const data2 = await request(`${url}/tim-kiem?keyword=${wd.replace(" ", "+")}`);
+async function search(wd, quick, pg) {
+  const data2 = await getRequest(`${url}/tim-kiem?keyword=${wd.replace(" ", "+")}`);
   const $2 = load(data2);
   const items = $2("table tbody tr");
   const total = $2("font-medium mx-1");
-  let list = _.map(items, (item) => {
+  let list = lodashMap(items, (item) => {
     const mainTitle = $2(item).find("td h3").text().trim();
     const subTitle = $2(item).find("td h4").text().trim();
     return {

@@ -1,5 +1,5 @@
 import { load } from 'cheerio';
-import { getRequest } from '../shared';
+import { getRequest, lodashMap } from '../shared';
 
 let url = 'https://phim.nguonc.com';
 let siteKey = '';
@@ -61,7 +61,7 @@ async function home(filter: boolean): Promise<Stringified<HomeData>> {
     'Quốc gia khác': '/quoc-gia/quoc-gia-khac',
   };
 
-  const classes = _.map(dulieu, (key, label) => ({
+  const classes = lodashMap(dulieu, (key, label) => ({
     type_id: key,
     type_name: label,
   }));
@@ -72,7 +72,7 @@ async function home(filter: boolean): Promise<Stringified<HomeData>> {
         key: 'tag',
         init: '/the-loai/hanh-dong',
         name: 'Type',
-        value: _.map(theloai, (key, label) => ({
+        value: lodashMap(theloai, (key, label) => ({
           v: key,
           n: label,
         })),
@@ -83,7 +83,7 @@ async function home(filter: boolean): Promise<Stringified<HomeData>> {
         key: 'tag',
         init: '/quoc-gia/au-my',
         name: 'Type',
-        value: _.map(quocgia, (key, label) => ({
+        value: lodashMap(quocgia, (key, label) => ({
           v: key,
           n: label,
         })),
@@ -102,7 +102,7 @@ async function homeVod() {
   const $ = load(data);
   const items = $('table tbody tr');
 
-  let list = _.map(items, (item) => {
+  let list = lodashMap(items, (item) => {
     const mainTitle = $(item).find('td h3').text().trim();
     const subTitle = $(item).find('td h4').text().trim();
     return {
@@ -136,7 +136,7 @@ async function category(
   const items = $('table tbody tr');
   const total = $('font-medium mx-1');
 
-  let list = _.map(items, (item) => {
+  let list = lodashMap(items, (item) => {
     const mainTitle = $(item).find('td h3').text().trim();
     const subTitle = $(item).find('td h4').text().trim();
     return {
@@ -156,8 +156,8 @@ async function category(
   });
 }
 
-async function detail(id) {
-  const data = JSON.parse(await request(`${url}/api/film/${id}`));
+async function detail(id: string): Promise<Stringified<VodData>> {
+  const data = JSON.parse(await getRequest<string>(`${url}/api/film/${id}`));
   let vod = {
     vod_id: data.movie.slug,
     vod_pic: data.movie.poster_url,
@@ -177,20 +177,20 @@ async function detail(id) {
   });
 }
 
-async function play(flag, id, flags) {
+async function play(flag: string, id: string, vipFlags: string[]): Promise<Stringified<PlayData>> {
   return JSON.stringify({
     parse: 0,
     url: id,
   });
 }
 
-async function search(wd, quick) {
-  const data = await request(`${url}/tim-kiem?keyword=${wd.replace(' ', '+')}`);
+async function search(wd: string, quick?: boolean, pg?: string): Promise<Stringified<VodData>> {
+  const data = await getRequest<string>(`${url}/tim-kiem?keyword=${wd.replace(' ', '+')}`);
   const $ = load(data);
   const items = $('table tbody tr');
   const total = $('font-medium mx-1');
 
-  let list = _.map(items, (item) => {
+  let list = lodashMap(items, (item) => {
     const mainTitle = $(item).find('td h3').text().trim();
     const subTitle = $(item).find('td h4').text().trim();
     return {

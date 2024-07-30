@@ -103,7 +103,7 @@ async function detail(id: string): Promise<Stringified<VodData>> {
   });
 }
 
-async function play(flag: string, id: string, vipFlags: string[]): Promise<Stringified<PlayData>> {
+async function play(flag: string, id: string, vipFlags?: string[]): Promise<Stringified<PlayData>> {
   const [movieId, episodeId] = id.split('-');
 
   const streams = JSON.parse(
@@ -117,9 +117,9 @@ async function play(flag: string, id: string, vipFlags: string[]): Promise<Strin
   });
 }
 
-async function search(key: string, quick: boolean, pg: string): Promise<Stringified<VodData>> {
+async function search(wd: string, quick?: boolean, pg?: string): Promise<Stringified<VodData>> {
   const results = JSON.parse(
-    await getRequest<string>(`${url}/api/movies?limit=20&page=1&q=${key}`)
+    await getRequest<string>(`${url}/api/movies?limit=20&page=1&q=${wd}`)
   ).results;
 
   const list = results.map((item) => {

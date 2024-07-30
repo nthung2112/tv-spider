@@ -43,9 +43,9 @@ async function play(flag: string, id: string, vipFlags: string[]): Promise<Strin
   return JSON.stringify({ parse: 0, url: '' });
 }
 
-async function search(key: string, quick: boolean, pg: string): Promise<Stringified<VodData>> {
+async function search(wd: string, quick?: boolean, pg?: string): Promise<Stringified<VodData>> {
   // Implement search page logic with wd and quick parameters
-  console.log(`Search page: wd=${key}, quick=${quick}`);
+  console.log(`Search page: wd=${wd}, quick=${quick}`);
   return JSON.stringify({ list: [] });
 }
 
