@@ -57,7 +57,7 @@
       "key": "nguonc",
       "name": "NguonC",
       "type": 3,
-      "api": "https://raw.githubusercontent.com/nthung2112/tv-spider/main/js/dist/nguonc.js",
+      "api": "https://raw.githubusercontent.com/nthung2112/tv-spider/main/dist/nguonc.js",
       "searchable": 1,
       "changeable": 1
     },
@@ -73,7 +73,7 @@
       "key": "danet",
       "name": "Danet",
       "type": 3,
-      "api": "https://raw.githubusercontent.com/nthung2112/tv-spider/main/js/dist/danet.js",
+      "api": "https://raw.githubusercontent.com/nthung2112/tv-spider/main/dist/danet.js",
       "searchable": 1,
       "changeable": 1
     },
