@@ -66,10 +66,9 @@ interface PlayData {
   url: string;
 }
 
-interface CategoryData {
+interface CategoryData extends VodData {
   page: number;
   pagecount: number;
   limit: number;
   total: number;
-  list: VodItem[];
 }

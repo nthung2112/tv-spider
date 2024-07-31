@@ -16,7 +16,7 @@ async function home(filter: boolean): Promise<Stringified<HomeData>> {
   // Implement home page logic with filter parameter
   console.log(`Home page with filter: ${filter}`);
 
-  return JSON.stringify({ class: {}, filters: {} });
+  return JSON.stringify({ class: [], filters: {} });
 }
 
 async function category(
@@ -43,10 +43,10 @@ async function play(flag: string, id: string, vipFlags: string[]): Promise<Strin
   return JSON.stringify({ parse: 0, url: '' });
 }
 
-async function search(wd: string, quick?: boolean, pg?: string): Promise<Stringified<VodData>> {
+async function search(wd: string, quick?: boolean, pg?: string): Promise<Stringified<CategoryData>> {
   // Implement search page logic with wd and quick parameters
   console.log(`Search page: wd=${wd}, quick=${quick}`);
-  return JSON.stringify({ list: [] });
+  return JSON.stringify({ page: 1, pagecount: 1, limit: 1, total: 1, list: [] });
 }
 
 export function __jsEvalReturn() {

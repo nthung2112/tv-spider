@@ -1,11 +1,37 @@
-import { load } from 'cheerio';
+import { type CheerioAPI, load } from 'cheerio';
 import { getRequest, lodashMap } from '../shared';
 
 let url = 'https://phim.nguonc.com';
 let siteKey = '';
 let siteType = 0;
 
-async function init(cfg: { skey: string; stype: number, ext?: string }): Promise<void> {
+async function parseVodListFromUrl(link: string): Promise<Stringified<CategoryData>> {
+  const data = await getRequest<string>(link);
+  const $ = load(data);
+  const items = $('table tbody tr');
+  const total = $('font-medium mx-1');
+
+  const list = lodashMap(items, (item) => {
+    const mainTitle = $(item).find('td h3').text().trim();
+    const subTitle = $(item).find('td h4').text().trim();
+    return {
+      vod_id: $(item).find('td a')[0].attribs.href.split('/').pop() || '',
+      vod_name: `${mainTitle} (${subTitle})`,
+      vod_pic: $(item).find('img:first')[0].attribs['data-src'],
+      vod_remarks: $($(item).find('td')[1]).text().trim(),
+    };
+  });
+
+  return JSON.stringify({
+    page: total[0] ? Number($(total[0]).text().trim()) : 1,
+    pagecount: total[1] ? Number($(total[1]).text().trim()) : 1,
+    limit: items.length,
+    total: total[2] ? Number($(total[2]).text().trim()) : items.length,
+    list,
+  });
+}
+
+async function init(cfg: { skey: string; stype: number; ext?: string }): Promise<void> {
   siteKey = cfg.skey;
   siteType = cfg.stype;
 }
@@ -97,25 +123,9 @@ async function home(filter: boolean): Promise<Stringified<HomeData>> {
   });
 }
 
-async function homeVod() {
-  const data = await getRequest<string>(`${url}/danh-sach-phim`);
-  const $ = load(data);
-  const items = $('table tbody tr');
-
-  const list = lodashMap(items, (item) => {
-    const mainTitle = $(item).find('td h3').text().trim();
-    const subTitle = $(item).find('td h4').text().trim();
-    return {
-      vod_id: $(item).find('td a')[0].attribs.href.split('/').pop(),
-      vod_name: `${mainTitle} (${subTitle})`,
-      vod_pic: $(item).find('img:first')[0].attribs['data-src'],
-      vod_remarks: $($(item).find('td')[1]).text().trim(),
-    };
-  });
-
-  return JSON.stringify({
-    list,
-  });
+async function homeVod(): Promise<Stringified<VodData>> {
+  const link = `${url}/danh-sach-phim`;
+  return await parseVodListFromUrl(link);
 }
 
 async function category(
@@ -131,29 +141,7 @@ async function category(
     link = `${url}${extend.tag || tid}?page=${pg}`;
   }
 
-  const data = await getRequest<string>(link);
-  const $ = load(data);
-  const items = $('table tbody tr');
-  const total = $('font-medium mx-1');
-
-  const list = lodashMap(items, (item) => {
-    const mainTitle = $(item).find('td h3').text().trim();
-    const subTitle = $(item).find('td h4').text().trim();
-    return {
-      vod_id: $(item).find('td a')[0].attribs.href.split('/').pop() || '',
-      vod_name: `${mainTitle} (${subTitle})`,
-      vod_pic: $(item).find('img:first')[0].attribs['data-src'],
-      vod_remarks: $($(item).find('td')[1]).text().trim(),
-    };
-  });
-
-  return JSON.stringify({
-    page: Number(pg),
-    pagecount: total[1] ? Number($(total[1]).text().trim()) : 1,
-    limit: items.length,
-    total: total[2] ? Number($(total[2]).text().trim()) : items.length,
-    list,
-  });
+  return await parseVodListFromUrl(link);
 }
 
 async function detail(id: string): Promise<Stringified<VodData>> {
@@ -184,30 +172,13 @@ async function play(flag: string, id: string, vipFlags: string[]): Promise<Strin
   });
 }
 
-async function search(wd: string, quick?: boolean, pg?: string): Promise<Stringified<VodData>> {
-  const data = await getRequest<string>(`${url}/tim-kiem?keyword=${wd.replace(' ', '+')}`);
-  const $ = load(data);
-  const items = $('table tbody tr');
-  const total = $('font-medium mx-1');
-
-  let list = lodashMap(items, (item) => {
-    const mainTitle = $(item).find('td h3').text().trim();
-    const subTitle = $(item).find('td h4').text().trim();
-    return {
-      vod_id: $(item).find('td a')[0].attribs.href.split('/').pop(),
-      vod_name: `${mainTitle} (${subTitle})`,
-      vod_pic: $(item).find('img:first')[0].attribs['data-src'],
-      vod_remarks: $($(item).find('td')[1]).text().trim(),
-    };
-  });
-
-  return JSON.stringify({
-    page: total[0] ? total[0].text().trim() : 1,
-    pagecount: total[1] ? total[1].text().trim() : 1,
-    limit: items.length,
-    total: total[2] ? total[2].text().trim() : items.length,
-    list,
-  });
+async function search(
+  wd: string,
+  quick?: boolean,
+  pg?: string
+): Promise<Stringified<CategoryData>> {
+  const link = `${url}/tim-kiem?keyword=${wd.replace(' ', '+')}`;
+  return await parseVodListFromUrl(link);
 }
 
 export function __jsEvalReturn() {

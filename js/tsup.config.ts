@@ -6,7 +6,7 @@ export default defineConfig({
   entry: ['./src/sites/*.ts'],
   format: ['esm'],
   sourcemap: false,
-  minify: false,
+  minify: true,
   target: 'es2020',
   splitting: false,
   outDir: 'dist',
