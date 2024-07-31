@@ -21,7 +21,7 @@
       "key": "phimmoi",
       "name": "Phim Moi",
       "type": 3,
-      "api": "https://raw.githubusercontent.com/nthung2112/tv-spider/main/js/phimmoi.js",
+      "api": "https://raw.githubusercontent.com/nthung2112/tv-spider/main/dist/phimmoi.js",
       "searchable": 1,
       "changeable": 1
     },
@@ -29,7 +29,7 @@
       "key": "phim1080",
       "name": "Phim 1080",
       "type": 3,
-      "api": "https://raw.githubusercontent.com/nthung2112/tv-spider/main/js/xemphim1080.js",
+      "api": "https://raw.githubusercontent.com/nthung2112/tv-spider/main/dist/xemphim1080.js",
       "searchable": 1,
       "changeable": 1
     },
@@ -37,7 +37,7 @@
       "key": "ophim",
       "name": "O Phim",
       "type": 3,
-      "api": "https://raw.githubusercontent.com/nthung2112/tv-spider/main/js/ophim.js",
+      "api": "https://raw.githubusercontent.com/nthung2112/tv-spider/main/dist/ophim.js",
       "searchable": 1,
       "changeable": 1,
       "playerType": 2,
@@ -71,7 +71,7 @@
       "key": "vebotv",
       "name": "Vebo TV",
       "type": 3,
-      "api": "https://raw.githubusercontent.com/nthung2112/tv-spider/main/js/vebotv.js",
+      "api": "https://raw.githubusercontent.com/nthung2112/tv-spider/main/dist/vebotv.js",
       "searchable": 1,
       "changeable": 1,
       "header": {
@@ -82,7 +82,7 @@
       "key": "thapcamtv",
       "name": "Thapcam TV",
       "type": 3,
-      "api": "https://raw.githubusercontent.com/nthung2112/tv-spider/main/js/thapcamtv.js",
+      "api": "https://raw.githubusercontent.com/nthung2112/tv-spider/main/dist/thapcamtv.js",
       "searchable": 1,
       "changeable": 1,
       "header": {
