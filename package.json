@@ -6,19 +6,21 @@
   "type": "module",
   "scripts": {
     "dev": "tsup --watch",
-    "build": "tsup"
+    "build": "tsup",
+    "test": "tsx test.ts"
   },
-  "author": "",
+  "author": "Hung Nguyen <nthung2112@gmail.com>",
   "license": "ISC",
   "dependencies": {
     "axios": "^1.7.2",
-    "qs": "^6.12.3",
-    "tsup": "^8.2.3"
+    "qs": "^6.12.3"
   },
   "devDependencies": {
     "@types/jsdom": "^21.1.7",
     "@types/node": "^22.0.0",
     "cheerio": "^1.0.0-rc.12",
+    "tsx": "^4.16.3",
+    "tsup": "^8.2.3",
     "typescript": "^5.5.4"
   }
 }

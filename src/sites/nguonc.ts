@@ -1,4 +1,4 @@
-import { type CheerioAPI, load } from 'cheerio';
+import { load } from 'cheerio';
 import { getRequest, lodashMap } from '../shared';
 
 let url = 'https://phim.nguonc.com';

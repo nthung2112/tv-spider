@@ -1,5 +1,5 @@
 import './src/wrapper/index.js';
-import { __jsEvalReturn } from './src/sites/nguonc';
+import { __jsEvalReturn } from './src/sites/ohitv';
 
 var spider = __jsEvalReturn();
 
