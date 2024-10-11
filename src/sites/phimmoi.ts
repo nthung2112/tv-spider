@@ -1,7 +1,7 @@
 import { load } from 'cheerio';
 import { getRequest, lodashMap, postRequest } from '../shared';
 
-let url = 'https://phimmoichillv.net';
+let url = 'https://phimmoichill.com';
 let siteKey = '';
 let siteType = 0;
 
