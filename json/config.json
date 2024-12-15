@@ -88,28 +88,6 @@
       "header": {
         "referer": "https://i.fdcdn.xyz/"
       }
-    },
-    {
-      "key": "Youtube",
-      "name": "Youtube",
-      "type": 3,
-      "api": "csp_Youtube",
-      "searchable": 1,
-      "quickSearch": 0,
-      "changeable": 0,
-      "ext": {
-        "token": "https://gcore.jsdelivr.net/gh/gaotianliuyun/gao@master/lib/token.json",
-        "json": "https://gcore.jsdelivr.net/gh/gaotianliuyun/gao@master/json/youtube.json",
-        "type": "直播#新闻#剧集#电影#综艺#纪录片#音乐#体育#动物#风光#放松#4K#HDR#movie#music#documentary#bbc documentary#national geographic documentary",
-        "proxy": "socks5://127.0.0.1:10172",
-        "keywords": "排行榜,HOT,TRENDS,热门话题,热门趋势,热门综艺,热门电影,热门电视剧,小姐姐",
-        "codecs": "",
-        "danmu": true
-      },
-      "style": {
-        "type": "rect",
-        "ratio": 1.77
-      }
     }
   ],
   "doh": [
