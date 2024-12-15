@@ -14,10 +14,6 @@
       "name": "TVPLUSVN",
       "url": "https://raw.githubusercontent.com/frumos96/gemtv/main/TVPLUSVN.m3u",
       "playerType": 2
-    },
-    {
-      "name": "Youtube Test",
-      "url": "https://raw.githubusercontent.com/YuanHsing/YouTube_to_m3u/main/youtube.m3u"
     }
   ],
   "sites": [
@@ -91,6 +87,29 @@
       "changeable": 1,
       "header": {
         "referer": "https://i.fdcdn.xyz/"
+      }
+    },
+    {
+      "key": "Youtube",
+      "name": "Youtube",
+      "type": 3,
+      "api": "csp_Youtube",
+      "searchable": 1,
+      "quickSearch": 0,
+      "changeable": 0,
+      "timeout": 120,
+      "ext": {
+        "token": "https://raw.githubusercontent.com/ouhaibo1980/tvbox/master/pg/lib/tokentemplate.json",
+        "json": "https://raw.githubusercontent.com/ouhaibo1980/tvbox/master/pg/lib/youtube.json",
+        "type": "sports#4K#HDR#movie#music#documentary#bbc documentary#national geographic documentary",
+        "keywords": "Ranking,HOT,TRENDS,Hot Topics,Hot Trends",
+        "codecs": "",
+        "proxy": "proxy",
+        "danmu": true
+      },
+      "style": {
+        "type": "rect",
+        "ratio": 1.77
       }
     }
   ],
