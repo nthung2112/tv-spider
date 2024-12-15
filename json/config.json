@@ -14,6 +14,10 @@
       "name": "TVPLUSVN",
       "url": "https://raw.githubusercontent.com/frumos96/gemtv/main/TVPLUSVN.m3u",
       "playerType": 2
+    },
+    {
+      "name": "Youtube Test",
+      "url": "https://raw.githubusercontent.com/YuanHsing/YouTube_to_m3u/main/youtube.m3u"
     }
   ],
   "sites": [
