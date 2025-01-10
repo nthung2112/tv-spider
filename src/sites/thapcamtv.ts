@@ -1,7 +1,7 @@
 import { getRequest, groupBy, isEmpty, lodashMap } from '../shared';
 import { showDateText } from '../util';
 
-let url = 'https://api.thapcam.xyz';
+let url = 'https://q.thapcamn.xyz';
 let siteKey = '';
 let siteType = 0;
 
