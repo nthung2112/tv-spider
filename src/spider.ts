@@ -24,9 +24,9 @@ export interface Spider {
 
   search(key: string, quick?: boolean, page?: string): Promise<Stringified<CategoryData>>;
 
-  live(url: string): Promise<string>;
+  live?(url: string): Promise<string>;
 
-  action(action: string): Promise<string>;
+  action?(action: string): Promise<string>;
 
-  destroy(): void;
+  destroy?(): void;
 }
