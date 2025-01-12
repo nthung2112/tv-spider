@@ -60,7 +60,7 @@ async function home(filter: boolean): Promise<Stringified<HomeData>> {
     .sort((a, b) => orders[a.id] - orders[b.id]);
 
   return JSON.stringify({
-    class: classes,
+    class: [{ id: "highlight", name: "Highlight" }].concat(classes),
     filters: filterObj,
   });
 }
@@ -91,6 +91,28 @@ async function category(
   extend: Record<string, string>
 ): Promise<Stringified<CategoryData>> {
   let matches = [];
+
+  if (tid === "highlight") {
+      const res = JSON.parse(await getRequest<string>(`${url}/api/news/vebotv/list/highlight/${pg}`))
+        .data as any;
+      const list = res.list.map((item) => {
+        return {
+          vod_id: `${item.id}_${tid}`,
+          vod_name: item.name,
+          vod_pic: item.feature_image,
+          vod_remarks: showDateText(item.updated_at),
+        };
+      });
+  
+      return JSON.stringify({
+        page: res.page,
+        pagecount: Math.round(res.total / res.limit),
+        limit: res.limit,
+        total: res.total,
+        list,
+      });
+    }
+
   if (tid === 'featured') {
     matches = JSON.parse(await getRequest<string>(`${url}/api/match/featured`)).data as any[];
   } else {
@@ -110,7 +132,7 @@ async function category(
     .sort((a, b) => b.tournament.priority - a.tournament.priority)
     .map((item) => {
       return {
-        vod_id: item.id,
+        vod_id: `${item.id}_${tid}`,
         vod_name: item.name,
         vod_pic: item.tournament.logo,
         vod_remarks: showDateText(item.timestamp),
@@ -126,7 +148,24 @@ async function category(
   });
 }
 
-async function detail(id: string): Promise<Stringified<VodData>> {
+async function detail(oid: string): Promise<Stringified<VodData>> {
+  const [id, tid] = oid.split("_");
+  
+    if (tid === "highlight") {
+      const res = JSON.parse(await getRequest<string>(`${url}/api/news/vebotv/detail/${id}`)).data as any;
+      return JSON.stringify({
+        list: [{
+          vod_id: id,
+          vod_pic: res.feature_image,
+          vod_name: res.name,
+          vod_play_from: "VeboTV",
+          vod_play_url: `Full$${res.video_url}`,
+          vod_remarks: showDateText(res.updated_at),
+          vod_content: res.content,
+        }],
+      });
+    }
+
   const meta = JSON.parse(await getRequest<string>(`${url}/api/match/${id}`)).data;
   const data = JSON.parse(await getRequest<string>(`${url}/api/match/${id}/meta`)).data;
 
