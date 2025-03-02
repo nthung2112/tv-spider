@@ -150,36 +150,40 @@ async function detail(oid: string): Promise<Stringified<VodData>> {
   const [id, tid] = oid.split("_");
 
   if (tid === "xemlai") {
-    const res = JSON.parse(await getRequest<string>(`${url}/api/news/thapcam/detail/${id}`)).data as any;
+    const res = JSON.parse(await getRequest<string>(`${url}/api/news/thapcam/detail/${id}`))
+      .data as any;
     return JSON.stringify({
-      list: [{
-        vod_id: id,
-        vod_pic: res.feature_image,
-        vod_name: res.name,
-        vod_play_from: "ThapCamTV",
-        vod_play_url: `Full$${res.video_url}`,
-        vod_remarks: showDateText(res.updated_at),
-        vod_content: res.content,
-      }],
+      list: [
+        {
+          vod_id: id,
+          vod_pic: res.feature_image,
+          vod_name: res.name,
+          vod_play_from: "ThapCamTV",
+          vod_play_url: `Full$${res.video_url}`,
+          vod_remarks: showDateText(res.updated_at),
+          vod_content: res.content,
+        },
+      ],
     });
   }
 
   const meta = JSON.parse(await getRequest<string>(`${url}/api/match/${id}`)).data as any;
-  const data = JSON.parse(await getRequest<string>(`${url}/api/match/${id}/meta`)).data as any;
 
   const awayName = meta.away ? `${meta.scores.away} ${meta.away.name}` : "";
   const homeName = awayName ? `${meta.home.name} ${meta.scores.home}` : `${meta.home.name}`;
+  const play_urls = meta.fansites?.[0]?.stream_links || [];
+  const commentators = meta.fansites?.[0]?.blv || [];
 
   const vod = {
     vod_id: id,
     vod_pic: meta.tournament.logo,
     vod_name: [homeName, awayName].filter(Boolean).join(" - "),
-    vod_play_from: isEmpty(data.play_urls) ? "" : "ThapCamTV",
-    vod_play_url: isEmpty(data.play_urls)
+    vod_play_from: isEmpty(play_urls) ? "" : "ThapCamTV",
+    vod_play_url: isEmpty(play_urls)
       ? ""
-      : data.play_urls.map((item) => `${item.name}$${item.url}`).join("#"),
+      : play_urls.map((item) => `${item.name}$${item.url}`).join("#"),
     vod_remarks: meta.tournament.name,
-    vod_actor: data.commentators ? data.commentators.map((c) => c.name).join(" vs ") : "",
+    vod_actor: commentators.map((c) => c.name).join(" vs "),
     vod_content: meta.name,
   };
 
