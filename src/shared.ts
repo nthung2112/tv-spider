@@ -1,14 +1,22 @@
 const UA =
-  'Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1';
+  "Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1";
 
-export async function getRequest<T>(reqUrl: string, headers?: Record<string, string>) {
+export async function getRequest<T>(
+  reqUrl: string,
+  headers?: Record<string, string>,
+  withRaw = false
+) {
   const res = await req<T>(reqUrl, {
-    method: 'get',
+    method: "get",
     headers: {
-      'User-Agent': UA,
+      "User-Agent": UA,
       ...headers,
     },
   });
+  if (withRaw) {
+    return res;
+  }
+
   return res.content;
 }
 
@@ -18,11 +26,11 @@ export async function postRequest<T>(
   headers?: Record<string, string>
 ) {
   const res = await req<T>(reqUrl, {
-    method: 'post',
-    postType: 'form',
+    method: "post",
+    postType: "form",
     headers: {
-      'User-Agent': UA,
-      'x-requested-with': 'XMLHttpRequest',
+      "User-Agent": UA,
+      "x-requested-with": "XMLHttpRequest",
       ...headers,
     },
     data,
@@ -30,14 +38,20 @@ export async function postRequest<T>(
   return res.content;
 }
 
+export function getStringBetween(str: string, startChar: string, endChar: string) {
+  const start = str.indexOf(startChar);
+  const end = str.indexOf(endChar, start + startChar.length + 1);
+  return start !== -1 && end !== -1 ? str.substring(start + startChar.length, end) : null;
+}
+
 function isArrayLike<T extends Record<string, any>>(item: T | T[]): item is T[] {
   if (Array.isArray(item)) {
     return true;
   }
   if (
-    typeof item !== 'object' ||
-    !Object.prototype.hasOwnProperty.call(item, 'length') ||
-    typeof item.length !== 'number' ||
+    typeof item !== "object" ||
+    !Object.prototype.hasOwnProperty.call(item, "length") ||
+    typeof item.length !== "number" ||
     item.length < 0
   ) {
     return false;
@@ -73,14 +87,14 @@ export function isEmpty(value: unknown) {
   return (
     value === undefined ||
     value === null ||
-    (typeof value === 'object' && Object.keys(value).length === 0) ||
-    (typeof value === 'string' && value.trim().length === 0)
+    (typeof value === "object" && Object.keys(value).length === 0) ||
+    (typeof value === "string" && value.trim().length === 0)
   );
 }
 
 export function groupBy<T>(arr: T[], fn: ((item: T) => any) | string) {
   return arr.reduce<Record<string, T[]>>((prev, curr) => {
-    const groupKey = typeof fn === 'string' ? getValue(curr, fn) : fn(curr);
+    const groupKey = typeof fn === "string" ? getValue(curr, fn) : fn(curr);
     const group = prev[groupKey] || [];
     group.push(curr);
     return { ...prev, [groupKey]: group };
