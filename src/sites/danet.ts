@@ -1,8 +1,8 @@
-import { getRequest } from '../shared';
+import { getRequest } from "../shared";
 
-const url = 'https://danet.vn';
+const url = "https://danet.vn";
 
-let siteKey = '';
+let siteKey = "";
 let siteType = 0;
 
 async function init(cfg: { skey: string; stype: number }): Promise<void> {
@@ -87,16 +87,16 @@ async function detail(id: string): Promise<Stringified<VodData>> {
     vod_id: data.uid,
     vod_pic: data.poster,
     vod_name: data.title,
-    vod_play_from: 'Danet',
-    vod_play_url: '',
-    vod_director: data.movie_directors.map((d) => d.name).join(','),
-    vod_area: data.movie_country ? data.movie_country.name : '',
-    vod_actor: '',
+    vod_play_from: "Danet",
+    vod_play_url: "",
+    vod_director: data.movie_directors.map((d) => d.name).join(","),
+    vod_area: data.movie_country ? data.movie_country.name : "",
+    vod_actor: "",
     vod_year: data.release_year,
     vod_content: data.summary,
   };
 
-  vod.vod_play_url = episodes.map((d) => `${d.title}$${data.uid}-${d.uid}`).join('#');
+  vod.vod_play_url = episodes.map((d) => `${d.title}$${data.uid}-${d.uid}`).join("#");
 
   return JSON.stringify({
     list: [vod],
@@ -104,7 +104,7 @@ async function detail(id: string): Promise<Stringified<VodData>> {
 }
 
 async function play(flag: string, id: string, vipFlags?: string[]): Promise<Stringified<PlayData>> {
-  const [movieId, episodeId] = id.split('-');
+  const [movieId, episodeId] = id.split("-");
 
   const streams = JSON.parse(
     await getRequest<string>(`${url}/api/movies/${movieId}/episodes/${episodeId}/locations`)
