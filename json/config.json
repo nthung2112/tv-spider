@@ -57,28 +57,6 @@
       "api": "https://raw.githubusercontent.com/nthung2112/tv-spider/main/dist/danet.js",
       "searchable": 1,
       "changeable": 1
-    },
-    {
-      "key": "vebotv",
-      "name": "Vebo TV",
-      "type": 3,
-      "api": "https://raw.githubusercontent.com/nthung2112/tv-spider/main/dist/vebotv.js",
-      "searchable": 1,
-      "changeable": 1,
-      "header": {
-        "referer": "https://m10.ldplayer.xyz/"
-      }
-    },
-    {
-      "key": "thapcamtv",
-      "name": "Thapcam TV",
-      "type": 3,
-      "api": "https://raw.githubusercontent.com/nthung2112/tv-spider/main/dist/thapcamtv.js",
-      "searchable": 1,
-      "changeable": 1,
-      "header": {
-        "referer": "https://m10.ldplayer.xyz/"
-      }
     }
   ],
   "doh": [
