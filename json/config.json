@@ -2,17 +2,8 @@
   "wallpaper": "https://picsum.photos/1920/1080/?blur=10",
   "lives": [
     {
-      "name": "VietNgaTv",
-      "url": "https://raw.githubusercontent.com/phuhdtv/vietngatv/master/vietngatv.m3u"
-    },
-    {
       "name": "NTH",
       "url": "https://gist.githubusercontent.com/nthung2112/f4af7904dbf1e83fb2e4b155cf1a849d/raw/IPTV.m3u8",
-      "playerType": 2
-    },
-    {
-      "name": "TVPLUSVN",
-      "url": "https://raw.githubusercontent.com/frumos96/gemtv/main/TVPLUSVN.m3u",
       "playerType": 2
     }
   ],
