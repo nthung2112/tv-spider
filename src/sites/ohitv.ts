@@ -1,7 +1,7 @@
 import { load } from "cheerio";
 import { getRequest, postRequest, lodashMap } from "../shared";
 
-let url = "https://ohitv.pro";
+let url = "https://ohitv.link";
 let siteKey = "";
 let siteType = 0;
 
