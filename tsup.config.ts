@@ -11,15 +11,15 @@ export default defineConfig({
   splitting: false,
   outDir: "dist",
   platform: "browser",
-  external: ["cheerio"],
-  // esbuildPlugins: [
-  //   {
-  //     name: "cheerio-path-rewrite",
-  //     setup(build) {
-  //       build.onResolve({ filter: /^cheerio$/ }, () => {
-  //         return { path: "../lib/cheerio.min.js", external: true };
-  //       });
-  //     },
-  //   },
-  // ],
+  // external: ["cheerio"],
+  esbuildPlugins: [
+    {
+      name: "cheerio-path-rewrite",
+      setup(build) {
+        build.onResolve({ filter: /^cheerio$/ }, () => {
+          return { path: "../lib/cheerio.min.js", external: true };
+        });
+      },
+    },
+  ],
 });
