@@ -1,1 +1,48 @@
-var o="",s=0;async function n(i){return JSON.stringify({page:1,pagecount:1,limit:1,total:1,list:[]})}async function a(i){o=i.skey,s=i.stype}async function g(){return console.log("VOD home page"),n("")}async function l(i){return console.log(`Home page with filter: ${i}`),JSON.stringify({class:[],filters:{}})}async function c(i,t,e,r){return console.log(`Category page: tid=${i}, pg=${t}, filter=${e}, extend=${r}`),n("")}async function y(i){return console.log(`Detail page with id: ${i}`),JSON.stringify({list:[]})}async function f(i,t,e){return console.log(`Play page: flag=${i}, id=${t}, flags=${e}`),JSON.stringify({parse:0,url:""})}async function u(i,t,e){return console.log(`Search page: wd=${i}, quick=${t}`),n("")}function d(){return{init:a,home:l,homeVod:g,category:c,detail:y,play:f,search:u}}export{d as __jsEvalReturn};
+// src/sites/motchillzzz.ts
+var siteKey = "";
+var siteType = 0;
+async function parseVodListFromUrl(link) {
+  return JSON.stringify({ page: 1, pagecount: 1, limit: 1, total: 1, list: [] });
+}
+async function init(cfg) {
+  siteKey = cfg.skey;
+  siteType = cfg.stype;
+}
+async function homeVod() {
+  console.log("VOD home page");
+  return parseVodListFromUrl("");
+}
+async function home(filter) {
+  console.log(`Home page with filter: ${filter}`);
+  return JSON.stringify({ class: [], filters: {} });
+}
+async function category(tid, pg, filter, extend) {
+  console.log(`Category page: tid=${tid}, pg=${pg}, filter=${filter}, extend=${extend}`);
+  return parseVodListFromUrl("");
+}
+async function detail(id) {
+  console.log(`Detail page with id: ${id}`);
+  return JSON.stringify({ list: [] });
+}
+async function play(flag, id, vipFlags) {
+  console.log(`Play page: flag=${flag}, id=${id}, flags=${vipFlags}`);
+  return JSON.stringify({ parse: 0, url: "" });
+}
+async function search(wd, quick, pg) {
+  console.log(`Search page: wd=${wd}, quick=${quick}`);
+  return parseVodListFromUrl("");
+}
+function __jsEvalReturn() {
+  return {
+    init,
+    home,
+    homeVod,
+    category,
+    detail,
+    play,
+    search
+  };
+}
+export {
+  __jsEvalReturn
+};
