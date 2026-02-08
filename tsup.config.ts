@@ -16,7 +16,7 @@ export default defineConfig({
       name: "cheerio-path-rewrite",
       setup(build) {
         build.onResolve({ filter: /^cheerio$/ }, () => {
-          return { path: "../lib/cheerio.min.js", external: true };
+          return { path: "./lib/cat.js", external: true };
         });
       },
     },
