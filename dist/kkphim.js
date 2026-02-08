@@ -1,4 +1,4 @@
-// src/sites/nguonc.ts
+// src/sites/kkphim.ts
 import { load } from "../lib/cheerio.min.js";
 
 // src/shared.ts
@@ -44,8 +44,9 @@ function lodashMap(items, iteratee) {
   return Object.keys(items).map((key) => iteratee(items[key], key));
 }
 
-// src/sites/nguonc.ts
-var url = "https://phim.nguonc.com";
+// src/sites/kkphim.ts
+var url = "https://www.kkphim.vip";
+var urlApi = "https://phimapi.com";
 var siteKey = "";
 var siteType = 0;
 async function parseVodListFromUrl(link) {
@@ -77,17 +78,17 @@ async function init(cfg) {
 }
 async function home(filter) {
   const dulieu = {
-    "Phim \u0111ang chi\u1EBFu": "/danh-sach/phim-dang-chieu",
     "Phim B\u1ED9": "/danh-sach/phim-bo",
     "Phim L\u1EBB": "/danh-sach/phim-le",
     "TV Shows": "/danh-sach/tv-shows",
+    "Ho\u1EA1t H\xECnh": "/danh-sach/hoat-hinh",
+    "Phim chi\u1EBFu r\u1EA1p": "/danh-sach/phim-chieu-rap",
     "Th\u1EC3 lo\u1EA1i": "the-loai",
     "Qu\u1ED1c gia": "quoc-gia"
   };
   const theloai = {
     "H\xE0nh \u0110\u1ED9ng": "/the-loai/hanh-dong",
     "Phi\xEAu L\u01B0u": "/the-loai/phieu-luu",
-    "Ho\u1EA1t H\xECnh": "/the-loai/hoat-hinh",
     H\u00E0i: "/the-loai/phim-hai",
     "H\xECnh S\u1EF1": "/the-loai/hinh-su",
     "T\xE0i Li\u1EC7u": "/the-loai/tai-lieu",
@@ -159,7 +160,7 @@ async function home(filter) {
   });
 }
 async function homeVod() {
-  const link = `${url}/danh-sach-phim`;
+  const link = `${url}/duyet-tim`;
   return await parseVodListFromUrl(link);
 }
 async function category(tid, pg, filter, extend) {
@@ -171,7 +172,7 @@ async function category(tid, pg, filter, extend) {
   return await parseVodListFromUrl(link);
 }
 async function detail(id) {
-  const data = JSON.parse(await getRequest(`${url}/api/film/${id}`));
+  const data = JSON.parse(await getRequest(`${urlApi}/phim/${id}`));
   const vod = {
     vod_id: data.movie.slug,
     vod_pic: data.movie.poster_url,
@@ -180,8 +181,8 @@ async function detail(id) {
     vod_director: data.movie.director,
     vod_actor: data.movie.casts,
     vod_content: data.movie.description,
-    vod_play_from: data.movie.episodes.map((e) => e.server_name).join("$$$"),
-    vod_play_url: data.movie.episodes.map((e) => e.items.map((d) => `${d.name}$${d.m3u8}`).join("#")).join("$$$")
+    vod_play_from: data.episodes.map((e) => e.server_name).join("$$$"),
+    vod_play_url: data.episodes.map((e) => e.server_data.map((d) => `${d.name}$${d.link_m3u8}`).join("#")).join("$$$")
   };
   return JSON.stringify({
     list: [vod]

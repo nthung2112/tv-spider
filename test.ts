@@ -1,5 +1,5 @@
 import "./src/wrapper/index.js";
-import { __jsEvalReturn } from "./src/sites/thapcamtv.js";
+import { __jsEvalReturn } from "./src/sites/kkphim.js";
 
 var spider = __jsEvalReturn();
 
