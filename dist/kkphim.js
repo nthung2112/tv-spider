@@ -60,7 +60,7 @@ async function parseVodListFromUrl(link) {
     return {
       vod_id: $(item).find("td a")[0].attribs.href.split("/").pop() || "",
       vod_name: `${mainTitle} (${subTitle})`,
-      vod_pic: $(item).find("img:first")[0].attribs["data-src"],
+      vod_pic: $(item).find("img:first")[0].attribs["srcset"],
       vod_remarks: $($(item).find("td")[1]).text().trim()
     };
   });
