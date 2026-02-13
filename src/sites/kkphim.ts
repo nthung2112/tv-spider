@@ -155,7 +155,9 @@ async function detail(id: string): Promise<Stringified<VodData>> {
     vod_director: data.movie.director,
     vod_actor: data.movie.actor,
     vod_content: data.movie.content,
-    vod_play_from: data.episodes.map((e) => e.server_name).join("$$$"),
+    vod_play_from: data.episodes
+      .map((e) => e.server_name.replace(/[^a-zA-Z0-9\\s]/g, ""))
+      .join("$$$"),
     vod_play_url: data.episodes
       .map((e) => e.server_data.map((d) => `${d.name}$${d.link_m3u8}`).join("#"))
       .join("$$$"),
