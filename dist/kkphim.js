@@ -181,8 +181,8 @@ async function detail(id) {
     vod_director: data.movie.director,
     vod_actor: data.movie.actor,
     vod_content: data.movie.content,
-    vod_play_from: data.episodes.map((e) => e.server_name).join("$$$"),
-    vod_play_url: data.episodes.map((e) => e.server_data.map((d) => `${d.name}$${d.link_m3u8}`).join("#")).join("$$$")
+    vod_play_from: "",
+    vod_play_url: ""
   };
   return JSON.stringify({
     list: [vod]
