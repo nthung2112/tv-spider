@@ -177,10 +177,10 @@ async function detail(id) {
     vod_id: data.movie.slug,
     vod_pic: data.movie.poster_url,
     vod_remarks: data.movie.episode_current,
-    vod_name: `${data.movie.name} (${data.movie.original_name})`,
+    vod_name: `${data.movie.name}`,
     vod_director: data.movie.director,
-    vod_actor: data.movie.casts,
-    vod_content: data.movie.description,
+    vod_actor: data.movie.actor,
+    vod_content: data.movie.content,
     vod_play_from: data.episodes.map((e) => e.server_name).join("$$$"),
     vod_play_url: data.episodes.map((e) => e.server_data.map((d) => `${d.name}$${d.link_m3u8}`).join("#")).join("$$$")
   };
